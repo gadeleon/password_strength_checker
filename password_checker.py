@@ -42,7 +42,7 @@ def main():
                 # Parsing happens here, adjust for your needs!
                 if ".edu:" in line or '.edu.' in line:
                     password = line.split(':')[1].split('\r')[0]
-                    if rate_password(password) == 'Strong' or rate_password == 'Best':
+                    if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
                         print line.strip('\n')
 
 if __name__ == '__main__':
