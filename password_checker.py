@@ -40,7 +40,7 @@ def main():
         with open(data, 'r') as infile:
             for line in infile:
                 # Parsing happens here, adjust for your needs!
-                if ".edu:" in line or '.edu.' in line:
+                if ".edu:" in line.lower() or '.edu.' in line.lower():
                     password = line.split(':')[1].split('\r')[0]
                     if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
                         print line.strip('\n')
