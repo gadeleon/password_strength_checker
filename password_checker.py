@@ -11,18 +11,22 @@ def rate_password(password):
     password_strength = dict.fromkeys(['has_upper', 'has_lower', 'has_num', 'has_symbol'], False)
     if re.search(r'[A-Z]', password):
         password_strength['has_upper'] = True
+        #print 'upper found'
     else: 
         password_strength['has_upper'] = False
     if re.search(r'[a-z]', password):
         password_strength['has_lower'] = True
+        #print 'lower found'
     else: 
         password_strength['has_lower'] = False
     if re.search(r'[0-9]', password):
         password_strength['has_num'] = True
+        #print 'num found'
     else: 
         password_strength['has_num'] = False
     if re.search(r'[\W]', password):
         password_strength['has_symbol'] = True
+        #print 'symbol found'
     else: 
         password_strength['has_symbol'] = False
     score = len([b for b in password_strength.values() if b])
@@ -40,10 +44,14 @@ def main():
         with open(data, 'r') as infile:
             for line in infile:
                 # Parsing happens here, adjust for your needs!
-                if ".edu:" in line.lower() or '.edu.' in line.lower():
-                    password = line.split(':')[1].split('\r')[0]
-                    if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
-                        print line.strip('\n')
+                if ".edu" in line.lower() or '.edu.' in line.lower(): #or '.edu:' in line.lower():
+                    try:
+                        password = line.split(':')[1].split('\r')[0]
+                        password = password.strip('\n')
+                        if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
+                            print line.strip('\n')
+                    except IndexError:
+                        pass #print line.strip('\n')
 
 if __name__ == '__main__':
     main()
