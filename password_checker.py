@@ -39,6 +39,7 @@ def main():
         version = '%(prog)s 0.1.0') 
     parser.add_argument('file', type=str, nargs='+', 
         help='RIHF file(s) with passwords')
+    parser.add_argument('--dl', '--delimiter', nargs=1, default=':')
     args = parser.parse_args()
     for data in args.file:
         with open(data, 'r') as infile:
@@ -46,12 +47,13 @@ def main():
                 # Parsing happens here, adjust for your needs!
                 if ".edu" in line.lower() or '.edu.' in line.lower(): #or '.edu:' in line.lower():
                     try:
-                        password = line.split(':')[1].split('\r')[0]
+                        password = line.split(args.dl[0])[1].split('\r')[0]
                         password = password.strip('\n')
+                        #print password
                         if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
                             print line.strip('\n')
                     except IndexError:
-                        pass #print line.strip('\n')
+                        pass#print 'failed!'
 
 if __name__ == '__main__':
     main()
