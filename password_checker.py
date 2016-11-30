@@ -34,6 +34,7 @@ def main():
                 if ".edu" in line.lower() or '.edu.' in line.lower(): #or '.edu:' in line.lower():
                     try:
                         password = line.split(args.dl[0])[1].split('\r')[0]
+                        password = password.rstrip()
                         password = password.strip('\n')
                         #print password
                         if rate_password(password) == 'Strong' or rate_password(password) == 'Best':
